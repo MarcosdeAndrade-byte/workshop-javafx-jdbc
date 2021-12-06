@@ -78,7 +78,6 @@ public class DepartmentListController implements Initializable {
 		List<Department> list = service.FindAll();
 		//Convertemos nossa lista de departamnetos em uma obsList
 		obsList = FXCollections.observableArrayList(list);
-		
 		tableViewDepartment.setItems(obsList);
 	}
 }
