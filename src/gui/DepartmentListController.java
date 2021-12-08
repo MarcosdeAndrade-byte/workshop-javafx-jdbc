@@ -106,6 +106,7 @@ public class DepartmentListController implements Initializable {
 			//Pegamos a nossa caixa de diálogo e passamos um objeto vazio para ela
 			DepartmentFormController controler = loader.getController();
 			controler.setDepartment(obj);
+			controler.setDepartmentService(new DepartmentService());
 			controler.updateFormData();
 			
 			Stage dialogStage = new Stage();
