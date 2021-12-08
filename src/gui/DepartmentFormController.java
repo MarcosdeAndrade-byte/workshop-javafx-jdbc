@@ -9,8 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Department;
 
 public class DepartmentFormController implements Initializable {
+	
+	//Dependência para o departamento (Dentro do nosso formulário poderemos adicionar e fazer o UpDate)
+    //Uma entidade relacionada ao formulário
+	private Department entity;
 
 	//Controles
 	@FXML
@@ -27,6 +32,11 @@ public class DepartmentFormController implements Initializable {
 	
 	@FXML
 	private Button btCancel;
+	
+	//Instância do departamento
+	public void setDepartment(Department entity) {
+		this.entity = entity;
+	}
 	
 	@FXML
 	public void onBtSaveAction() {
@@ -46,5 +56,15 @@ public class DepartmentFormController implements Initializable {
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtName, 30);
+	}
+	
+	//Método para pegar os dados do departamento e jogar nas caixas de texto
+	public void updateFormData() {
+		if(entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+		//Pelo fato de termos usado uma caixa de texto, vamos ter que converter o Id para String
+		txtId.setText(String.valueOf(entity.getId()));
+		txtName.setText(entity.getName());
 	}
 }

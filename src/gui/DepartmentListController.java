@@ -52,7 +52,9 @@ public class DepartmentListController implements Initializable {
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/DepartmentForm.fxml", parentStage);
+		Department obj = new Department();
+		//Na hora de criar uma tela de diálogo passamos como argumento um objeto,uma referêcia para nossa tela e a cena pai
+		createDialogForm(obj,"/gui/DepartmentForm.fxml", parentStage);
 	}
 
 	@Override
@@ -94,11 +96,17 @@ public class DepartmentListController implements Initializable {
 	
 	//No argumento colocamos o Stage que criou a janela de diálogo
 	//Quando criamos uma janela de diálogo temos que informar que à criou
-	private void createDialogForm(String absoluteName,Stage parentStage) {
+	//Adicionamos um
+	private void createDialogForm(Department obj,String absoluteName,Stage parentStage) {
 		try {
 			//Carrega uma hierarquia de objeto de um documento XML.
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			//Pegamos a nossa caixa de diálogo e passamos um objeto vazio para ela
+			DepartmentFormController controler = loader.getController();
+			controler.setDepartment(obj);
+			controler.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			//Método para modificar o título da cena
@@ -112,6 +120,7 @@ public class DepartmentListController implements Initializable {
 			//Método para proibir interação com outras telas
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
+			
 		}catch(IOException e) {
 			Alerts.showAlert("Io Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
