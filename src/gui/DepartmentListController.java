@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Department;
 import model.services.DepartmentService;
 
-public class DepartmentListController implements Initializable {
+public class DepartmentListController implements Initializable, DataChangeListener {
 
 	// Referêcia para os controles da tela de departamento
 	@FXML
@@ -104,10 +105,11 @@ public class DepartmentListController implements Initializable {
 			Pane pane = loader.load();
 			
 			//Pegamos a nossa caixa de diálogo e passamos um objeto vazio para ela
-			DepartmentFormController controler = loader.getController();
-			controler.setDepartment(obj);
-			controler.setDepartmentService(new DepartmentService());
-			controler.updateFormData();
+			DepartmentFormController controller = loader.getController();
+			controller.setDepartment(obj);
+			controller.setDepartmentService(new DepartmentService());
+			controller.subscribeDataChangeListerner(this);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			//Método para modificar o título da cena
@@ -125,5 +127,10 @@ public class DepartmentListController implements Initializable {
 		}catch(IOException e) {
 			Alerts.showAlert("Io Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 }

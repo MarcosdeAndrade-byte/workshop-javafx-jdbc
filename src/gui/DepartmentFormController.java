@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -24,6 +27,9 @@ public class DepartmentFormController implements Initializable {
 	private Department entity;
 	
 	private DepartmentService service;
+	
+    //Com a implementação da interface as classes podem se inscrever para receber o evento da classe
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
 	//Controles
 	@FXML
@@ -51,6 +57,11 @@ public class DepartmentFormController implements Initializable {
 		this.service = service;
 	}
 	
+	//
+	public void subscribeDataChangeListerner(DataChangeListener listerner) {
+		dataChangeListeners.add(listerner);
+	}
+	
 	//ação que permite o botão salvar ou fazer um UpDate
 	@FXML
 	public void onBtSaveAction(ActionEvent event) {
@@ -68,12 +79,19 @@ public class DepartmentFormController implements Initializable {
 		    //Usamos o serviço para fazer o save ou Update
 		    service.saveOrUpdate(entity);
 		    //Utilizamos o método currentStage para fechar a cena quando uma ação ocorrer
+		    notifyDataChangeListeners();
 		    Utils.currentStage(event).close();
 		}catch(DbException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
 	
+	private void notifyDataChangeListeners() {
+		for(DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
+		}
+	}
+
 	//Método responsável por pegar as informações nas caixas de texto da aplicação
 	private Department getFormData() {
 		//Criamos uma variável do tipo departamento
