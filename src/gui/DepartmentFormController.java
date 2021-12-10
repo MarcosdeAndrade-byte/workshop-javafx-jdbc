@@ -122,8 +122,8 @@ public class DepartmentFormController implements Initializable {
 	}
 
 	@FXML
-	public void onBtCancelAction() {
-		System.out.println("onBtCancelAction");
+	public void onBtCancelAction(ActionEvent event) {
+		 Utils.currentStage(event).close();
 	}
 	
 	@Override
