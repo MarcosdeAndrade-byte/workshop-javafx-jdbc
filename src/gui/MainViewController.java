@@ -17,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.DepartmentService;
+import model.services.SellerService;
 
 public class MainViewController implements Initializable {
 
@@ -33,12 +34,15 @@ public class MainViewController implements Initializable {
 	// Eventos
 	@FXML
 	public void onMenuItemSellerAction() {
-		System.out.println("OnMenuItemSellerAction");
+		loadView("/gui/SellerList.fxml", (SellerListController controller) -> {
+			controller.setSellerService(new SellerService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
 	public void onMenuItemDepartmentAction() {
-		loadView("/gui/DepartmentList.fxml",(DepartmentListController controller) -> {
+		loadView("/gui/DepartmentList.fxml", (DepartmentListController controller) -> {
 			controller.setDepartmentService(new DepartmentService());
 			controller.updateTableView();
 		});
@@ -47,17 +51,18 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemAbout() {
 		// Utilizamos o método loadView para carregar as telas
-		loadView("/gui/About.fxml", x -> {});
+		loadView("/gui/About.fxml", x -> {
+		});
 	}
 
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
 	}
 
-	// Método para carregar as telas 
+	// Método para carregar as telas
 	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
-            //Carrega uma hierarquia de objeto de um documento XML.
+			// Carrega uma hierarquia de objeto de um documento XML.
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVBox = loader.load();
 
@@ -75,7 +80,7 @@ public class MainViewController implements Initializable {
 			mainVBox.getChildren().add(mainMenu);
 			// Vamos adicionar o os filhos do newVBox na janela principal
 			mainVBox.getChildren().addAll(newVBox.getChildren());
-			
+
 			//
 			T controller = loader.getController();
 			initializingAction.accept(controller);
