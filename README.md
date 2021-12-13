@@ -51,7 +51,9 @@ Nós usamos o Git para controle de versão. Para as versões disponíveis, obser
 * Editar departamentos
 
 ## :camera: Resultado final
-
+![](https://github.com/MarcosdeAndrade-byte/workshop-javafx-jdbc/blob/main/img/SellerView.png)
+![](https://github.com/MarcosdeAndrade-byte/workshop-javafx-jdbc/blob/main/img/addSeller.png)
+![](https://github.com/MarcosdeAndrade-byte/workshop-javafx-jdbc/blob/main/img/departmentView.png)
 
 ## ✒️ Autores
 
