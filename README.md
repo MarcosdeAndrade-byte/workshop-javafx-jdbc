@@ -5,7 +5,7 @@ composição,herança,polimorfismo,tratamento de exceções,expressões lambda, 
 e interface gráfica.
 
  O software foi desenvolvido em conjunto com o professor Nélio Alves e tem como \
- objetivo relacionar vendedores de uma loja e seus respectivos departamentos. 
+ objetivo relacionar vendedores de uma loja com seus respectivos departamentos. 
 
 
 ## 🚀 Começando
