@@ -4,8 +4,8 @@ podemos ver os conceitos fundamentais de orientação a objetos,dentre eles:enum
 composição,herança,polimorfismo,tratamento de exceções,expressões lambda, JDBC \
 e interface gráfica.
 
-A aplicação desenvolvida funciona através da relação departamento e vendedor, onde \
-um vendedor pertence a um departamento, e um departamento contem vários vendedores. 
+ O software foi desenvolvido em conjunto com o professor Nélio Alves e tem como \
+ objetivo relacionar vendedores de uma loja e seus respectivos departamentos. 
 
 
 ## 🚀 Começando
